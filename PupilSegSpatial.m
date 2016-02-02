@@ -7,8 +7,8 @@ threshold_bright = 0.92;
 
 disp('reading videos..');
 
-vd1 = VideoReader('E:\RAPDeye\RAPD detected\Manju_prakash_raspayala_45_right.avi');
-vd2 = VideoReader('E:\RAPDeye\RAPD detected\Manju_prakash_raspayala_45_left.avi');
+vd1 = VideoReader('Manju_prakash_raspayala_45_right.avi');
+vd2 = VideoReader('Manju_prakash_raspayala_45_left.avi');
 
 % frame_rate = vd.FrameRate;
 
@@ -30,12 +30,18 @@ figure; hold on
 disp('thank you, now processing frames..');
 for f = 1:frames  
     frame_l = video_l(:,:,:,f);
-    Im_l = process_pupil(frame_l, 1, 180,threshold_dark, threshold_bright);
+    spec1= process_pupil(frame_l, 1, 180,threshold_dark, threshold_bright);
+    
+    
+    
     
     frame_r = video_r(:,:,:,f);
     Im_r = process_pupil(frame_r, 1, 180,threshold_dark, threshold_bright);
+%     subplot(1,3,1)
+    imshow(spec1);
+%     Inpaint(spec1, Dilation[saturated, DiskMatrix[20]])
     
-    imshow([Im_r, Im_l]);
+    
 end
 
 % xlswrite('RecordedArea.xlsx',Area);   %Record the area variations in a excel file for future use.
