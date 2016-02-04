@@ -14,7 +14,12 @@ function[processedFrame] = process_pupil(frame, brightness, square_side, thresho
 
     se = strel('disk', 1, 4);
     z2 = imdilate(z1,se);
+   
+ 
+%     spec_x(size(Im, 1)/2 - square_side:size(Im, 1)/2 + square_side , size(Im, 2)/2 - square_side:size(Im, 2)/2 + square_side  ,2) = Im(size(Im, 1)/2 - square_side:size(Im, 1)/2 + square_side , size(Im, 2)/2 - square_side:size(Im, 2)/2 + square_side  ,2) + 255*cast(z2, 'uint8');
     
+%     spec = spec_x;
+%     imshow(z2);
     cc = bwconncomp(z2);
     numPixels = cellfun(@numel,cc.PixelIdxList);
     [biggest,idx] = max(numPixels);
@@ -25,8 +30,8 @@ function[processedFrame] = process_pupil(frame, brightness, square_side, thresho
     cnt1 = edge(BW3);
     % cnt2 = imdilate(cnt1,se2);
     
-    Im(size(Im, 1)/2 - square_side:size(Im, 1)/2 + square_side , size(Im, 2)/2 - square_side:size(Im, 2)/2 + square_side  ,2) = Im(size(Im, 1)/2 - square_side:size(Im, 1)/2 + square_side , size(Im, 2)/2 - square_side:size(Im, 2)/2 + square_side  ,2) + 255*cast(cnt1, 'uint8');
+%     Im(size(Im, 1)/2 - square_side:size(Im, 1)/2 + square_side , size(Im, 2)/2 - square_side:size(Im, 2)/2 + square_side  ,2) = Im(size(Im, 1)/2 - square_side:size(Im, 1)/2 + square_side , size(Im, 2)/2 - square_side:size(Im, 2)/2 + square_side  ,2) + 255*cast(cnt1, 'uint8');
     
-    processedFrame = Im;
+    processedFrame = z2;
     
 end
